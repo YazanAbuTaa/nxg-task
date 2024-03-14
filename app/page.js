@@ -1,35 +1,23 @@
-import axios from 'axios';
+'use client';
+import useDataFetching from "./components/hooks/useApiData";
 
-const Home = ({ users }) => {
+const Home = () => {
+  const { data: users, loading } = useDataFetching('/api/users');
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <h1>Users</h1>
       <ul>
         {users.map(user => (
-          <li key={user.id}>{user.name}</li>
+          <li key={user.id}>{user.firstName}</li>
         ))}
       </ul>
     </div>
   );
 };
-
-export async function getStaticProps() {
-  try {
-    const response = await axios.get('/api/users');
-    const users = response.data; 
-    return {
-      props: {
-        users,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    return {
-      props: {
-        users: [],
-      },
-    };
-  }
-}
 
 export default Home;

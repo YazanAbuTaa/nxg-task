@@ -6,5 +6,11 @@ export async function GET(req, res) {
 }
 
 export async function POST(req, res) { 
-    const newUser = await createUser();
+    if(!req.body.firstName || !req.body.lastName || !req.body.email) {
+        return NextResponse.json({ error: 'Missing params in body' }, { status: 404 });
+    }
+
+    const newUser = await createUser(req.body);
+
+    return NextResponse.json(newUser);
 }
