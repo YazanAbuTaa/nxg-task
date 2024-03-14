@@ -1,10 +1,35 @@
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+import axios from 'axios';
 
-      <div>
-        test
-      </div>
-    </main>
+const Home = ({ users }) => {
+  return (
+    <div>
+      <h1>Users</h1>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
   );
+};
+
+export async function getStaticProps() {
+  try {
+    const response = await axios.get('/api/users');
+    const users = response.data; 
+    return {
+      props: {
+        users,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return {
+      props: {
+        users: [],
+      },
+    };
+  }
 }
+
+export default Home;
