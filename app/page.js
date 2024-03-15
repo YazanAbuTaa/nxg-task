@@ -8,6 +8,10 @@ const Home = () => {
     return <div>Loading...</div>;
   }
 
+  if (!users) {
+    return <div>No users found</div>;
+  }
+
   return (
     <div>
       <h1>Users</h1>
