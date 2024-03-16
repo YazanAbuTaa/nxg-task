@@ -1,5 +1,8 @@
 'use client';
+import { Box, Container, Typography } from "@mui/material";
 import useDataFetching from "./components/hooks/useApiData";
+import Button from "@mui/material";
+import MainMenu from "./components/MainMenu";
 
 const Home = () => {
   const { data: users, loading } = useDataFetching('/api/users');
@@ -14,12 +17,11 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Users</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>{user.firstName}</li>
-        ))}
-      </ul>
+      <Container>
+        <Box>
+          <MainMenu/>
+        </Box>
+      </Container>
     </div>
   );
 };
